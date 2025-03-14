@@ -3,9 +3,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class getMaze {
-    public static String[][] getMaze(String fileName) {
-        File f = new File(fileName);
+public class MazeRunner {
+    public static String[][] getMaze() {
+        File f = new File("src/txt");
         Scanner s = null;
         try {
             s = new Scanner(f);

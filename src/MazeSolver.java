@@ -17,7 +17,7 @@ public class MazeSolver {
             return;
         }
 
-        maze = getMaze(args[0]);
+        maze = MazeRunner.getMaze();
         int rows = maze.length;
         int cols = maze[0].length;
         visited = new boolean[rows][cols];
@@ -74,11 +74,53 @@ public class MazeSolver {
                 if (solveMaze(newRow, newCol, endRow, endCol)) {
                     return true;
                 }
-                 // when faced with a deadend
+                 // when faced with a dead end
                 solutionGrid[newRow][newCol] = 0;
                 stepCount--;
             }
         }
         return false;
+    }
+
+    private static boolean isValidMove(int row, int col) {
+        if (row < 0 || row >= maze.length || col < 0 || col >= maze[0].length) {
+            return false;
+        }
+
+        // checks if it is a wall
+        if (maze[row][col].equals("#")) {
+            return false;
+        }
+
+        if (visited[row][col]) {
+            return false;
+        }
+        return true;
+    }
+
+    // solution path?
+    private static void printSolutionPath(int endRow, int endCol) {
+        int totalSteps = solutionGrid[endRow][endCol];
+
+        // find each step in the solution grid
+        int[][] pathCoordinates = new int[totalSteps][2];
+        for (int i = 0; i < maze.length; i++) {
+            for (int j = 0; j < maze[0].length; j++) {
+                if (solutionGrid[i][j] > 0) {
+                    pathCoordinates[solutionGrid[i][j] - 1] = new int[]{i, j};
+                }
+            }
+        }
+
+        StringBuilder sb = new StringBuilder(); // might change string builder to smth more simple?
+        for (int i =0; i < pathCoordinates.length; i++) {
+            int[] position = pathCoordinates[i];
+            sb.append("(").append(position[0]).append(", ").append(position[1]).append(")");
+
+            if (i < pathCoordinates.length - 1) {
+                sb.append(" ---> ");
+            }
+        }
+        System.out.println(sb.toString());
     }
 }
