@@ -4,12 +4,12 @@ import java.util.Objects;
 public class MazeSolver {
     private String[][] maze;
     private ArrayList<Points> steps;
-    private ArrayList<Points> forks;
     private final Points start = new Points(0,0);
     private Points currentPosition;
     private Points end;
 
     public MazeSolver(int x, int y, String[][] grid){
+        // bottom-right corner
         end = new Points(y-1, x-1);
         maze = grid;
         steps= new ArrayList<Points>();
@@ -166,14 +166,14 @@ public class MazeSolver {
                 moveRight();
                 hasMoved =true;
                 count++;
-
             }
+
             if(!hasMoved && canMoveUp() && !directionFrom().equals("Up")&&!deadEnd){
                 moveUp();
                 hasMoved =true;
                 count++;
-
             }
+
             if(!hasMoved && canMoveDown()&& !directionFrom().equals("Down")&&!deadEnd){
                 moveDown();
                 hasMoved =true;
